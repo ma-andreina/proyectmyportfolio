@@ -1,0 +1,15 @@
+{%extends "layout.html" %}
+
+{% block content %}
+<div class="text">
+    <h2 class="post-title">{{ post.title }}</h2>
+    <h3 class= "my-2" h5 text-muted>{{ post.date|date:'M d Y'}}</h3>
+
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+
+    <div class="my-4">
+        <p>{{ post.content }}</p>
+    </div>
+</div>
+
+{% endblock %}

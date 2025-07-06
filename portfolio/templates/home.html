@@ -1,0 +1,85 @@
+{%extends "layout.html" %}
+
+{% block content %}
+
+{% load static %}
+
+<div class="container px-5">
+    <header class="row bg-dark" style="min-height: 100vh; display: flex; align-items: center;">
+        <div class="col-md-8 my-auto text-white">
+            <h4 class="text-accent" style="font-size: 2rem;">Hello, my name is</h4>
+            <h1 class="text-name" style="font-size: 4rem; font-weight: bold;">MARIA ANDREINA GUTIERREZ</h1>
+            <h1 class="text-secondary-custom" style="font-size: 3rem; font-weight: bold;">I love exploring new things!</h1>
+            <p class="text-secondary-custom" style="font-size: 1.3rem;">I'm a seventh-semester Computer Engineering student at UNELLEZ, Barinas, Venezuela.</p>
+            <p class="text-secondary-custom" style="font-size: 1.3rem;">Primarily interested in Web Development and Data Science. I enjoy learning new skills and putting them into practice!</p>
+            <a href="{% static 'portfolio/cv.pdf' %}" class="btn btn-download-cv btn-lg my-2" target="_blank">Resume</a>
+        </div>
+    </header>
+
+    <div class="row my-4 p-4" id="about-section" style="min-height: 100vh; display: flex; align-items: center;">
+        <div class="col-md-8">
+            <h3 class="section-title">About Me</h3>
+            <p class="about-paragraph" style="text-align:left; font-size: 1.3rem">I'm primarily interested in web development and data science. I've worked as a back-end developer with experience in C++, Java, PHP, SQL, and Python. I have the ability to collaborate closely with clients to create efficient, scalable, and intuitive solutions that solve real-world problems. I also have the ability to improve code readability, maintainability, and scalability by following coding best practices.<br>
+I'm currently in my seventh semester of Computer Science Engineering at UNELLEZ (2022-present). My current GPA is 4.35 out of 5.<br>
+Here are some other activities I love! Programming, Reading, Crafts, Problem-solving, Team management, Mentoring</p>
+        </div>
+        <div class="col-md-4 d-flex justify-content-center align-items-center">
+            <img src="{% static 'portfolio/profile.jpg' %}" alt="Profile Image" class="img-fluid rounded" style="max-width:320px; max-height:320px; border: 3px solid #4fc6b3;" />
+        </div>
+    </div>
+
+    <div class="row my-4 p-4" style="min-height: 100vh; display: flex; align-items: center;">
+        <h3 class="section-title">My Projects</h3>
+        <p class="text-project-desc" style="color: #8b95b3; font-size: 1.3rem">The following projects showcase my skills and experience through practical examples of my work. Each project is briefly described with links to code repositories and live demos. This reflects my ability to solve problems, work with different technologies, and manage projects effectively.</p>
+        {% for project in projects %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card text-white h-100 card-project">
+                    {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="card-img-top" />
+                    {% else %}
+                        <img src="{% static 'portfolio/default.jpg' %}" alt="Default Image" class="card-img-top img-fluid" />
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ project.title }}</h5>
+                        <p class="card-text">{{ project.description }}</p>
+                        {% if project.url %}
+                            <a href="{{ project.url }}" class="btn btn-view-project btn-sm" target="_blank">View Project</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>No projects available.</p>
+        {% endfor %}
+    </div>
+
+    <div class="row my-4 p-4" id="contact-section" style="min-height: 100vh; display: flex; align-items: center;">
+        <div class="col-md-8">
+            <h3 class="section-title">Get in Touch</h3>
+             <p class="text-project-desc" style="color: #8b95b3; font-size: 1.3rem">If you'd like to get in touch with me, feel free to email me!
+I'm here to share knowledge, projects, and innovative tools. Get in touch! Let's talk about ideas and projects.</p>
+            {% if message_sent %}
+                <div class="alert alert-success">Your message has been sent successfully!</div>
+            {% elif error_message %}
+                <div class="alert alert-danger">{{ error_message }}</div>
+            {% endif %}
+            <form method="post" class="contact-form p-4 rounded" style="background:#172a45;">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label text-white">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label text-white">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label text-white">Message</label>
+                    <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-view-project w-100">Send Message</button>
+            </form>
+        </div>
+    </div>
+</div>
+{%endblock %}
