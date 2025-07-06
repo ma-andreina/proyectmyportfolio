@@ -7,6 +7,7 @@ class Project(models.Model):
     description = CharField(max_length=250)
     image = ImageField(upload_to='portfolio/images')
     url = URLField(blank=True)
+    languages = models.CharField(max_length=150, blank=True, help_text="Lenguajes utilizados en el proyecto, separados por coma.")
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=100)

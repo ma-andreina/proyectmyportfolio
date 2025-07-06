@@ -21,6 +21,20 @@
 
     {% block content %}
     {% endblock %}
+    <script>
+      // Scroll to section if URL has ?section=about or ?section=contact
+      document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const section = params.get('section');
+        if (section === 'about') {
+          const about = document.getElementById('about-section');
+          if (about) about.scrollIntoView({ behavior: 'smooth' });
+        } else if (section === 'contact') {
+          const contact = document.getElementById('contact-section');
+          if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    </script>
     
 </body>
 </html>

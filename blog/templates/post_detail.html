@@ -5,10 +5,13 @@
     <h2 class="post-title">{{ post.title }}</h2>
     <h3 class= "my-2" h5 text-muted>{{ post.date|date:'M d Y'}}</h3>
 
-    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid">
+    <img src="{{ post.image.url }}" alt="{{ post.title }}" class="img-fluid post-img-fixed" style="width: 520px; height: 300px; object-fit: cover; display: block; margin-left: 0; border-radius: 0.5rem;" />
 
     <div class="my-4">
         <p>{{ post.content }}</p>
+        {% if post.url %}
+            <a href="{{ post.url }}" class="btn btn-view-project mt-3" target="_blank">View Repository</a>
+        {% endif %}
     </div>
 </div>
 

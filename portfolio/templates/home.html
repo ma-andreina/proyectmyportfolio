@@ -33,17 +33,22 @@ Here are some other activities I love! Programming, Reading, Crafts, Problem-sol
         <p class="text-project-desc" style="color: #8b95b3; font-size: 1.3rem">The following projects showcase my skills and experience through practical examples of my work. Each project is briefly described with links to code repositories and live demos. This reflects my ability to solve problems, work with different technologies, and manage projects effectively.</p>
         {% for project in projects %}
             <div class="col-md-6 col-lg-4 mb-4">
-                <div class="card text-white h-100 card-project">
+                <div class="card text-white h-100 card-project d-flex flex-column" style="min-height: 420px;">
                     {% if project.image %}
-                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="card-img-top" />
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}" class="card-img-top" style="width:100%; height:220px; object-fit:cover; border-radius:0.5rem 0.5rem 0 0;" />
                     {% else %}
-                        <img src="{% static 'portfolio/default.jpg' %}" alt="Default Image" class="card-img-top img-fluid" />
+                        <img src="{% static 'portfolio/default.jpg' %}" alt="Default Image" class="card-img-top img-fluid" style="width:100%; height:220px; object-fit:cover; border-radius:0.5rem 0.5rem 0 0;" />
                     {% endif %}
-                    <div class="card-body">
+                    <div class="card-body d-flex flex-column flex-grow-1">
                         <h5 class="card-title">{{ project.title }}</h5>
-                        <p class="card-text">{{ project.description }}</p>
+                        <p class="card-text flex-grow-1">{{ project.description }}</p>
+                        {% if project.languages %}
+                            <p class="project-languages mt-2" style="color: #4fc6b3; font-family: 'Fira Mono', monospace; font-size: 1rem;">
+                                {{ project.languages }}
+                            </p>
+                        {% endif %}
                         {% if project.url %}
-                            <a href="{{ project.url }}" class="btn btn-view-project btn-sm" target="_blank">View Project</a>
+                            <a href="{{ project.url }}" class="btn btn-view-project btn-sm mt-auto" target="_blank">View Repository</a>
                         {% endif %}
                     </div>
                 </div>
@@ -53,17 +58,17 @@ Here are some other activities I love! Programming, Reading, Crafts, Problem-sol
         {% endfor %}
     </div>
 
-    <div class="row my-4 p-4" id="contact-section" style="min-height: 100vh; display: flex; align-items: center;">
-        <div class="col-md-8">
-            <h3 class="section-title">Get in Touch</h3>
-             <p class="text-project-desc" style="color: #8b95b3; font-size: 1.3rem">If you'd like to get in touch with me, feel free to email me!
+    <div class="row my-4 p-4 justify-content-center align-items-center" id="contact-section" style="min-height: 100vh; display: flex;">
+        <div class="col-md-8 d-flex flex-column align-items-center">
+            <h3 class="section-title text-center">Get in Touch</h3>
+            <p class="text-project-desc text-center" style="color: #8b95b3; font-size: 1.3rem">If you'd like to get in touch with me, feel free to email me!
 I'm here to share knowledge, projects, and innovative tools. Get in touch! Let's talk about ideas and projects.</p>
             {% if message_sent %}
-                <div class="alert alert-success">Your message has been sent successfully!</div>
+                <div class="alert alert-success w-100">Your message has been sent successfully!</div>
             {% elif error_message %}
-                <div class="alert alert-danger">{{ error_message }}</div>
+                <div class="alert alert-danger w-100">{{ error_message }}</div>
             {% endif %}
-            <form method="post" class="contact-form p-4 rounded" style="background:#172a45;">
+            <form method="post" class="contact-form p-4 rounded w-100" style="background:#172a45; max-width: 600px;">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="name" class="form-label text-white">Name</label>
